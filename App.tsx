@@ -1,12 +1,10 @@
 import {View, Text} from 'react-native';
 import React from 'react';
+import '@unistyles/unistyles';
+import Navigation from '@navigation/Navigation';
 
 const App = () => {
-  return (
-    <View>
-      <Text style={{fontSize: 20}}>Hello World</Text>
-    </View>
-  );
+  return <Navigation />;
 };
 
 export default App;
