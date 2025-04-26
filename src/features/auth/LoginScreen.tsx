@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import React, {use, useState} from 'react';
+import React, {use, useEffect, useRef, useState} from 'react';
 import {loginStyles} from '@unistyles/authStyles';
 import {useStyles} from 'react-native-unistyles';
 import CustomText from '@components/global/CustomText';
@@ -16,11 +16,30 @@ import BreakerText from '@components/ui/BreakerText';
 import PhoneInput from '@components/ui/PhoneInput';
 import {resetAndNavigate} from '@utils/NavigationUtils';
 import SocialLogin from '@components/ui/SocialLogin';
+import useKeyboardOffsetHeight from '@utils/useKeyboardOffsetHeight';
 
 const LoginScreen = () => {
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const keyboardOffsetHeight = useKeyboardOffsetHeight();
   const {styles} = useStyles(loginStyles);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (keyboardOffsetHeight == 0) {
+      Animated.timing(animatedValue, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.timing(animatedValue, {
+        toValue: -keyboardOffsetHeight * 0.25,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+    }
+  }, [keyboardOffsetHeight]);
 
   const handleLogin = () => {
     setLoading(true);
@@ -39,6 +58,7 @@ const LoginScreen = () => {
         style={styles.cover}
       />
       <Animated.ScrollView
+        style={{transform: [{translateY: animatedValue}]}}
         bounces={false}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode={'on-drag'}
