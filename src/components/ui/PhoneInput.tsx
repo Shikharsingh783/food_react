@@ -33,6 +33,7 @@ const PhoneInput: FC<PhoneInputProps> = ({
       <View style={styles.phoneInputContainer}>
         <CustomText fontFamily="Okra-Bold">+91</CustomText>
         <TextInput
+          cursorColor={Colors.lightText}
           placeholder="Enter Phone Number"
           keyboardType="phone-pad"
           value={value}
