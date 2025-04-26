@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "pod-install" : "cd ios && RCT_NEW_ARCH_ENABLED=1 bundle exwc pod install",
+    "pod-install": "cd ios && RCT_NEW_ARCH_ENABLED=1 bundle exwc pod install",
     "postinstall": "npx patch-package",
     "generate-apk": "cd android && ./gradlew assembleRelease"
   },
