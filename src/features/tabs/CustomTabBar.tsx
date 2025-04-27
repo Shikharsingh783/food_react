@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Image} from 'react-native';
 import React, {FC, use} from 'react';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {useSharedState} from './SharedContext';
@@ -17,6 +17,7 @@ import {
 } from './TabIcon';
 
 const CustomTabBar: FC<BottomTabBarProps> = props => {
+  const isVegMode = true;
   const {scrollY} = useSharedState();
   const {state, navigation} = props;
   const bottom = useSafeAreaInsets();
@@ -100,7 +101,32 @@ const CustomTabBar: FC<BottomTabBarProps> = props => {
               </ScalePress>
             );
           })}
+          <View style={styles.verticalLine} />
         </View>
+        <Animated.View
+          style={[
+            styles.slidingIndicator,
+            indicatorStyle,
+            {
+              backgroundColor: isLiveTabFocused
+                ? '#fff'
+                : isVegMode
+                ? Colors.active
+                : Colors.primary,
+            },
+          ]}
+        />
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => {
+            Alert.alert('Will be available soon');
+          }}
+          style={styles.groceryLogoContainer}>
+          <Image
+            style={styles.groceryLogo}
+            source={require('@assets/icons/grocery.png')}
+          />
+        </TouchableOpacity>
       </Animated.View>
     </>
   );
